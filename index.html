@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 ans de nous</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      height: 100vh;
+      background: linear-gradient(
+        to bottom,
+        rgb(240, 228, 143) 35%,
+        rgb(208, 192, 102) 100%);
+    }
+
+    a{
+      padding: 30px;
+      background: linear-gradient(45deg, rgb(82, 7, 53), rgb(41, 3, 26));
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: 900;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    a:after{
+      content: "";
+      width: 10px;
+      height: 100%;
+      background-color: antiquewhite;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      rotate:45deg;
+      translate: 75% -30%
+    }
+
+    a:before{
+      content: "";
+      width: 10px;
+      height: 100%;
+      background-color: antiquewhite;
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      rotate:45deg;
+      translate: 75% 30%
+    }
+
+    .hidden{
+      display: none!important;
+    }
+  </style>
+</head>
+<body>
+  <a href="gift1.html">Cadeau 1</a>
+  <a href="gift2.html" class="hidden" id="numbertwo">Cadeau 2</a>
+</body>
+
+<script>
+
+  const link = document.querySelector('#numbertwo');
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    const currentTime = new Date();
+    const targetTime = new Date('2024-09-21 12:00:00');
+
+    if(currentTime > targetTime){
+      link.classList.remove('hidden');
+    }
+  })
+
+</script>
+</html>

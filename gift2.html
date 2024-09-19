@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 ans de nous</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #1f4f7c;
+    }
+
+    .slot-machine {
+      display: flex;
+      align-items: center;
+      font-size: 50px;
+      background-color: rgb(55, 128, 184);
+      border-radius: 10px;
+    }
+
+    .slot {
+      width: 80px;
+      height: 80px;
+      overflow: hidden;
+      margin: 0 10px;
+      border-radius: 5px;
+    }
+
+    .slot-content {
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .slot-content p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+    }
+
+    .spinning .slot-content {
+      animation: spin 0.2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-80px);
+      }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="slot-machine">
+    <div class="slot"><div class="slot-content"><p>❓</p></div></div>
+    <div class="slot"><div class="slot-content"><p>❓</p></div></div>
+    <div class="slot"><div class="slot-content"><p>❓</p></div></div>
+  </div>
+  <!-- <button id="spinButton">Spin</button> -->
+
+  <script>
+    const emojis = ['😀', '😎', '🥳', '🚀', '🌈', '🍕', '🎉', '🎸', '🏆', '💡', '🦄', '🍦', '🌺', '🏖️', '🎨', '🛸'];
+    const slots = document.querySelectorAll('.slot');
+    const spinButton = document.querySelector('.slot-machine');
+    const originalEmojis = ['🔦', '🏛️', '📽️'];
+
+    function getRandomEmoji() {
+      return emojis[Math.floor(Math.random() * emojis.length)];
+    }
+
+    function spinSlots() {
+      spinButton.disabled = true;
+      slots.forEach((slot, index) => {
+        const content = slot.querySelector('.slot-content');
+        content.innerHTML = '';
+        for (let i = 0; i < 20; i++) {
+          const p = document.createElement('p');
+          p.textContent = i === 19 ? originalEmojis[index] : getRandomEmoji();
+          content.appendChild(p);
+        }
+        slot.classList.add('spinning');
+      });
+
+      setTimeout(() => {
+        slots.forEach((slot, index) => {
+          setTimeout(() => {
+            slot.classList.remove('spinning');
+            const content = slot.querySelector('.slot-content');
+            content.style.transform = `translateY(-${(content.children.length - 1) * 80}px)`;
+          }, index * 500);
+        });
+
+        setTimeout(() => {
+          spinButton.disabled = false;
+        }, slots.length * 500);
+      }, 2000);
+    }
+
+    spinButton.addEventListener('click', spinSlots);
+  </script>
+</body>
+</html>
